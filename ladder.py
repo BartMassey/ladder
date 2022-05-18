@@ -1,4 +1,4 @@
-# Find longest word ladder in a dictionary.
+# Find a longest word ladder in a dictionary.
 # Bart Massey 2022
 
 # Strategy: Build an undirected graph of words from the
@@ -9,6 +9,7 @@
 # than the longest path so far, stop the search.
 
 import igraph, sys
+from longest import longest_path
 
 # Load up the dictionary. Ignore one-letter words.
 all_words = [w.strip() for w in open(sys.argv[1], "r") if len(w.strip()) >= 2]
@@ -85,7 +86,7 @@ for nchars in range(nshortest_word, nlongest_word + 1):
             # done.
             break
         print(f"starting search {nchars}/{ng}")
-        p = max((max(g.get_all_simple_paths(v), key=len) for v in g.vs), key=len)
+        p = longest_path(g)
         np = len(p)
         if np > nlongest:
             # We have found a new longest path. Save the length,
