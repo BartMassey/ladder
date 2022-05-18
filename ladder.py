@@ -57,12 +57,6 @@ nlongest = 0
 glongest = None
 longest = None
 for g in components:
-    # Find the longest path in this component. This is done
-    # by brute force enumeration of all paths. There are
-    # faster algorithms, but apparently they are not needed
-    # here, as the component sizes in real dictionaries tend
-    # to be reasonably small. The problem is NP-hard in general,
-    # so no truly efficient algorithm is known.
     ng = len(g.vs)
     # print(nlongest, ng)
     if ng < nlongest:
@@ -70,6 +64,12 @@ for g in components:
         # new longest path, then later g will also. We're
         # done.
         break
+    # Find the longest path in this component. This is done
+    # by brute force enumeration of all paths. There are
+    # faster heuristic algorithms, but the problem is
+    # NP-hard in general, so no truly efficient algorithm is
+    # known. Brute-force is good enough for small components;
+    # something much better is needed for large ones.
     p = max((max(g.get_all_simple_paths(v), key=len) for v in g.vs), key=len)
     np = len(p)
     if np > nlongest:
