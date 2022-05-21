@@ -72,6 +72,7 @@ for nchars in range(nshortest_word, nlongest_word + 1):
     glongest = None
     longest = None
     for g in components:
+
         # Find the longest path in this component. This is done
         # by brute force enumeration of all paths. There are
         # faster algorithms, but apparently they are not needed
@@ -80,6 +81,9 @@ for nchars in range(nshortest_word, nlongest_word + 1):
         # so no truly efficient algorithm is known.
         ng = len(g.vs)
         # print(nlongest, ng)
+        with open(f"clusters/{nchars}-{ng}.txt", "w") as f:
+            for v in g.vs:
+                print(f'{v["label"]}', file=f)
         if ng < nlongest:
             # If the current g has too few vertices to have a
             # new longest path, then later g will also. We're
