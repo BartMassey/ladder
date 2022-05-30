@@ -3,7 +3,6 @@
 
 import igraph
 
-
 def longest_path(g):
     nlongest = 0
     longest = None
