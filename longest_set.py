@@ -31,7 +31,7 @@ def longest_path(g):
         rs = set(map(Rep, g.neighbors(v)))
         depth = 1
         while True:
-            print(f"longest: {v}@{depth}")
+            # print(f"longest: {v}@{depth}")
             nrs = set(nr for r in rs for nr in r.extend())
             if not nrs:
                 break

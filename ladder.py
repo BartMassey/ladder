@@ -9,10 +9,18 @@
 # than the longest path so far, stop the search.
 
 import igraph, sys
-from longest_topo import longest_path
+import longest_set, longest_dijkstra
+
+if sys.argv[1] == "set":
+    longest_path = longest_set.longest_path
+elif sys.argv[1] == "dijkstra":
+    longest_path = longest_dijkstra.longest_path
+else:
+    print(f"{sys.argv[1]}: no such algorithm", file=sys.stderr)
+    exit(1)
 
 # Load up the dictionary. Ignore one-letter words.
-all_words = [w.strip() for w in open(sys.argv[1], "r") if len(w.strip()) >= 2]
+all_words = [w.strip() for w in open(sys.argv[2], "r") if len(w.strip()) >= 2]
 nshortest_word = min(map(len, all_words))
 nlongest_word = max(map(len, all_words))
 
@@ -102,6 +110,6 @@ for nchars in range(nshortest_word, nlongest_word + 1):
     # Display the answer.
     print(f"word length {nchars}")
     print(f"vertices of max length component {len(glongest.vs)}")
-    print(f"max path length {nlongest}")
+    print(f"max path length {nlongest - 1}")
     for v in longest:
         print(v["label"])

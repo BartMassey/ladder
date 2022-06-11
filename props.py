@@ -68,11 +68,11 @@ for nchars in range(nshortest_word, nlongest_word + 1):
 
     for c in components:
         print('component', len(c.vs))
-        d = decompose(c)
+        d = c.biconnected_components()
         print(
             'decomposition',
             len(c.vs),
             len(d),
-            [len(g0.vs) for g0 in d],
+            [len(g0) for g0 in d],
         )
         break
