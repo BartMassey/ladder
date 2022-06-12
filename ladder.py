@@ -15,6 +15,8 @@ if sys.argv[1] == "set":
     longest_path = longest_set.longest_path
 elif sys.argv[1] == "dijkstra":
     longest_path = longest_dijkstra.longest_path
+elif sys.argv[1] == "diameter":
+    longest_path = lambda g: [g.vs[i] for i in g.get_diameter()]
 else:
     print(f"{sys.argv[1]}: no such algorithm", file=sys.stderr)
     exit(1)
