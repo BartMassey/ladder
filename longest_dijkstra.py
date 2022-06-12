@@ -5,6 +5,8 @@ from collections import deque
 
 import igraph
 
+sort_vertices = False
+
 def longest_path_tree(tree):
     # Dijkstra's algorithm for longest path in an undirected
     # tree.
@@ -23,7 +25,16 @@ def longest_path_tree(tree):
     return path
 
 def longest_path(g):
-    tree = g.spanning_tree(weights = [-1] * len(g.es))
+    if sort_vertices:
+        # Sort vertices by decreasing degree.
+        vs = list(range(0, len(g.vs)))
+        vs.sort(key = lambda i: -g.vs[i].degree())
+        g0 = g.permute_vertices(vs)
+    else:
+        g0 = g
+    # Get a maximum-weight spanning tree.
+    tree = g0.spanning_tree(weights = [-1] * len(g0.es))
+    # Find the longest path in the tree.
     return longest_path_tree(tree)
 
 if __name__ == "__main__":
